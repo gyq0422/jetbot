@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JetBot Mini 控制面板</title>
+    <link rel="stylesheet" href="../static/css/car.css">  <!-- 引用CSS文件 -->
+</head>
+<body>
+
+    <h1>JetBot Mini 控制面板</h1>
+    <!--展示摄像头画面-->
+    <img id="videoFeed" src="/video" alt="Video Stream" />
+
+    <div class="controls">
+        <div>
+            <button class="control-btn" data-command="FORWARD">前进</button>
+            <button class="control-btn" data-command="BACKWARD">后退</button>
+        </div>
+        <div>
+            <button class="control-btn" data-command="LEFT">左转</button>
+            <button class="control-btn" data-command="RIGHT">右转</button>
+        </div>
+    </div>
+
+    <div>
+        <label for="speed">速度档：</label>
+        <select id="speed">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/car.js') }}"></script>
+
+</body>
+</html>
