@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JetBot Mini 控制面板</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        video {
+            width: 640px;
+            height: 480px;
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        select {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>JetBot Mini 控制面板</h1>
+    <video id="videoFeed" autoplay></video>
+    
+    <div class="controls">
+        <div>
+            <button onclick="sendCommand('FORWARD')">前进</button>
+            <button onclick="sendCommand('BACKWARD')">后退</button>
+        </div>
+        <div>
+            <button onclick="sendCommand('LEFT')">左转</button>
+            <button onclick="sendCommand('RIGHT')">右转</button>
+        </div>
+    </div>
+    
+    <div>
+        <label for="speed">速度档：</label>
+        <select id="speed" onchange="setSpeed(this.value)">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <script>
+        const socket = new WebSocket('ws://your-jetbot-ip:port');
+        
+        function sendCommand(command) {
+            socket.send(command);
+        }
+        
+        function setSpeed(speed) {
+            socket.send(`SPEED:${speed}`);
+        }
+
+        // 播放视频流
+        const video = document.getElementById('videoFeed');
+        video.src = 'http://your-jetbot-ip:port/video';  // 替换为JetBot的视频流地址
+    </script>
+
+</body>
+</html>
